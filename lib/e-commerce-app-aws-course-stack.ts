@@ -26,7 +26,7 @@ export class ECommerceAppAwsCourseStack extends cdk.Stack {
       },
       environment: {
         PRIMARY_KEY: "id",
-        DYNAMODB_TABLENAME: productTable.tableName,
+        DYNAMODB_TABLE_NAME: productTable.tableName,
       },
       runtime: Runtime.NODEJS_16_X,
     };
