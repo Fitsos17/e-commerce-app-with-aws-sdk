@@ -11,10 +11,12 @@ export class ECommerceAppAwsCourseStack extends cdk.Stack {
 
     const microservices = new SwnMicroservices(this, "Microservices", {
       productTable: database.productTable,
+      basketTable: database.basketTable,
     });
 
     const apigw = new SwnApiGw(this, "ApiGateway", {
-      productMicroservice: microservices.productFunction,
+      productMicroservice: microservices.productMicroservice,
+      basketMicroservice: microservices.basketMicroservice,
     });
   }
 }
