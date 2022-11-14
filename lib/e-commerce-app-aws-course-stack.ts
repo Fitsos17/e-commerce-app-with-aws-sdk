@@ -14,7 +14,7 @@ export class ECommerceAppAwsCourseStack extends cdk.Stack {
       basketTable: database.basketTable,
     });
 
-    const apigw = new SwnApiGw(this, "ApiGateway", {
+    new SwnApiGw(this, "ApiGateway", {
       productMicroservice: microservices.productMicroservice,
       basketMicroservice: microservices.basketMicroservice,
     });

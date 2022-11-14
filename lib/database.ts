@@ -33,7 +33,7 @@ export class SwnDatabase extends Construct {
   private createBasketTable(): ITable {
     // Basket DynamoDB Table
     const basketTable = new Table(this, "basket", {
-      partitionKey: { name: "username", type: AttributeType.STRING },
+      partitionKey: { name: "userName", type: AttributeType.STRING },
       tableName: "basket",
       removalPolicy: RemovalPolicy.DESTROY,
       billingMode: BillingMode.PAY_PER_REQUEST,
