@@ -3,6 +3,7 @@ import { Construct } from "constructs";
 import { SwnApiGw } from "./apigw";
 import { SwnDatabase } from "./database";
 import { SwnMicroservices } from "./microservices";
+import { SwnEventBus } from "./eventbus";
 export class ECommerceAppAwsCourseStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
@@ -12,11 +13,18 @@ export class ECommerceAppAwsCourseStack extends cdk.Stack {
     const microservices = new SwnMicroservices(this, "Microservices", {
       productTable: database.productTable,
       basketTable: database.basketTable,
+      orderTable: database.orderTable,
     });
 
     new SwnApiGw(this, "ApiGateway", {
       productMicroservice: microservices.productMicroservice,
       basketMicroservice: microservices.basketMicroservice,
+      orderMicroservice: microservices.orderMicroservice,
+    });
+
+    new SwnEventBus(this, "SwnEventBus", {
+      publisherFunction: microservices.basketMicroservice,
+      targetFunction: microservices.orderMicroservice,
     });
   }
 }

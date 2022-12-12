@@ -1,10 +1,9 @@
 {
-  "name": "@src/basket",
+  "name": "@src/ordering",
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.195.0",
-    "@aws-sdk/client-eventbridge": "^3.223.0",
     "@aws-sdk/util-dynamodb": "^3.195.0"
   }
 }

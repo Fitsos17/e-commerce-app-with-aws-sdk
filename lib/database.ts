@@ -10,12 +10,14 @@ import { Construct } from "constructs";
 export class SwnDatabase extends Construct {
   public readonly productTable: ITable;
   public readonly basketTable: ITable;
+  public readonly orderTable: ITable;
 
   constructor(scope: Construct, id: string) {
     super(scope, id);
 
     this.productTable = this.createProductTable();
     this.basketTable = this.createBasketTable();
+    this.orderTable = this.createOrderTable();
   }
 
   private createProductTable(): ITable {
@@ -40,5 +42,16 @@ export class SwnDatabase extends Construct {
     });
 
     return basketTable;
+  }
+
+  private createOrderTable(): ITable {
+    const orderTable = new Table(this, "OrderTable", {
+      tableName: "OrderTable",
+      partitionKey: { name: "userName", type: AttributeType.STRING },
+      sortKey: { name: "orderDate", type: AttributeType.STRING },
+      billingMode: BillingMode.PAY_PER_REQUEST,
+      removalPolicy: RemovalPolicy.DESTROY,
+    });
+    return orderTable;
   }
 }
