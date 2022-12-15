@@ -2,8 +2,9 @@
   "name": "@src/ordering",
   "version": "1.0.0",
   "main": "index.js",
+  "license": "ISC",
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "^3.195.0",
-    "@aws-sdk/util-dynamodb": "^3.195.0"
+    "@aws-sdk/client-dynamodb": "^3.231.0",
+    "@aws-sdk/util-dynamodb": "^3.231.0"
   }
 }
