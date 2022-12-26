@@ -145,7 +145,7 @@ const checkoutBasket = async (event) => {
   let checkoutPayload = prepareOrderPayload(checkoutRequest, basket);
 
   // 3. Publish event to eventbrigdge. This will subscribe by order microservice and start ordering process.
-  const publishedEvent = await publishCheckoutBasketEvent(checkoutPayload);
+  await publishCheckoutBasketEvent(checkoutPayload);
 
   // 4. Remove existing basket.
   await deleteBasket(checkoutRequest.userName);

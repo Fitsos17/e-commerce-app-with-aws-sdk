@@ -60,8 +60,9 @@ const apiGatewayInvocation = async (event) => {
 
 const createOrder = async (basketCheckoutEvent) => {
   try {
-    console.log(`createOrderFunction. Event: ${basketCheckoutEvent}`);
-    const orderDate = Date.toISOString();
+    console.log(`createOrder function. event : "${basketCheckoutEvent}"`);
+
+    const orderDate = new Date().toISOString();
     basketCheckoutEvent.orderDate = orderDate;
     console.log(basketCheckoutEvent);
 
@@ -71,7 +72,6 @@ const createOrder = async (basketCheckoutEvent) => {
     };
 
     const createResult = await ddbClient.send(new PutItemCommand(params));
-
     console.log(createResult);
     return createResult;
   } catch (error) {
@@ -91,7 +91,7 @@ const getOrder = async (event) => {
       KeyConditionExpression: "userName = :userName and orderDate = :orderDate",
       ExpressionAttributeValues: {
         ":userName": { S: userName },
-        orderDate: { S: orderDate },
+        ":orderDate": { S: orderDate },
       },
       TableName: process.env.DYNAMODB_TABLE_NAME,
     };

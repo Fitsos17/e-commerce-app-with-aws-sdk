@@ -4,6 +4,7 @@ import { SwnApiGw } from "./apigw";
 import { SwnDatabase } from "./database";
 import { SwnMicroservices } from "./microservices";
 import { SwnEventBus } from "./eventbus";
+import { SwnQueue } from "./queue";
 export class ECommerceAppAwsCourseStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
@@ -22,9 +23,13 @@ export class ECommerceAppAwsCourseStack extends cdk.Stack {
       orderMicroservice: microservices.orderMicroservice,
     });
 
+    const queue = new SwnQueue(this, "OrderQueue", {
+      consumer: microservices.orderMicroservice,
+    });
+
     new SwnEventBus(this, "SwnEventBus", {
       publisherFunction: microservices.basketMicroservice,
-      targetFunction: microservices.orderMicroservice,
+      targetQueue: queue.orderQueue,
     });
   }
 }

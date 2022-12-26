@@ -24,7 +24,7 @@ export class SwnDatabase extends Construct {
     // Product DybamoDB Table Creation
     const productTable = new Table(this, "product", {
       partitionKey: { name: "id", type: AttributeType.STRING },
-      tableName: "product",
+      tableName: "ProductTable",
       removalPolicy: RemovalPolicy.DESTROY,
       billingMode: BillingMode.PAY_PER_REQUEST,
     });
@@ -36,7 +36,7 @@ export class SwnDatabase extends Construct {
     // Basket DynamoDB Table
     const basketTable = new Table(this, "basket", {
       partitionKey: { name: "userName", type: AttributeType.STRING },
-      tableName: "basket",
+      tableName: "BasketTable",
       removalPolicy: RemovalPolicy.DESTROY,
       billingMode: BillingMode.PAY_PER_REQUEST,
     });
