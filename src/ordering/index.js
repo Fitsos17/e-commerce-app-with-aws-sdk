@@ -8,7 +8,9 @@ import ddbClient from "./ddbClient";
 
 exports.handler = async (event) => {
   const eventType = event["detail-type"];
-  if (eventType !== undefined) {
+  if (event.Records != null) {
+    await sqsInvocation(event);
+  } else if (eventType !== undefined) {
     await eventBridgeInvocation(event);
   } else {
     return await apiGatewayInvocation(event);
@@ -56,6 +58,18 @@ const apiGatewayInvocation = async (event) => {
       }),
     };
   }
+};
+
+const sqsInvocation = async (event) => {
+  console.log(`SqsInvocation. event: ${event}`);
+
+  event.Records.forEach(async (record) => {
+    console.log("Record: %j", record);
+
+    const checkoutEventRequest = JSON.parse(record.body);
+
+    await createOrder(checkoutEventRequest.detail);
+  });
 };
 
 const createOrder = async (basketCheckoutEvent) => {
